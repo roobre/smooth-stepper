@@ -25,9 +25,9 @@ protected:
 
     uint32_t period;
     uint32_t targetPeriod;
-    uint32_t targetSpeed;
+    int32_t targetSpeed;
 
-    uint32_t accelBeginSpeed;
+    int32_t accelBeginSpeed;
     uint32_t accel;
     int32_t accelTime;
     uint16_t deltaAccelTime;

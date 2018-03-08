@@ -48,13 +48,13 @@ void Stepper::accelRpm(float rpmps) {
 }
 
 void Stepper::computeAccelTime() {
-    accelTime = abs((int32_t)targetSpeed - (int32_t)accelBeginSpeed) * 1000 / accel;
+    accelTime = abs(targetSpeed - accelBeginSpeed) * 1000 / accel;
 }
 
 void Stepper::step() {
     if (__builtin_expect(accelerating && (deltaAccelTime = millis() - beginAccelMillis) > ACCEL_DELTA_TIME_MIN, false)) {
         // TODO: Try to conditionally cast into 32/16/8b periods.
-        uint32_t newPeriod = pps2period(accelBeginSpeed + ((int32_t)targetSpeed - (int32_t)accelBeginSpeed) * deltaAccelTime / accelTime);
+        uint32_t newPeriod = pps2period(accelBeginSpeed + (targetSpeed - accelBeginSpeed) * deltaAccelTime / accelTime);
 
         if ((accelBeginSpeed < targetSpeed && newPeriod <= targetPeriod) || (accelBeginSpeed > targetSpeed && newPeriod >= targetPeriod)) {
             period = targetPeriod;
