@@ -30,6 +30,7 @@ protected:
     uint32_t accelBeginSpeed;
     uint32_t accel;
     int32_t accelTime;
+    uint16_t deltaAccelTime;
 
     uint32_t lastMicros;
     uint32_t beginAccelMillis;
@@ -42,5 +43,6 @@ protected:
     static const uint8_t ARDUINO_PULSEWIDTH_OFFSET = 2;
     static const uint16_t DEFAULT_ACCEL = 200;
     static const uint16_t START_RPM = 10;
+    static const uint8_t ACCEL_DELTA_TIME_MIN = 5;
 };
 

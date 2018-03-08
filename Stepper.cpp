@@ -52,13 +52,9 @@ void Stepper::computeAccelTime() {
 }
 
 void Stepper::step() {
-    if (__builtin_expect(accelerating, false)) {
+    if (__builtin_expect(accelerating && (deltaAccelTime = millis() - beginAccelMillis) > ACCEL_DELTA_TIME_MIN, false)) {
         // TODO: Try to conditionally cast into 32/16/8b periods.
-        uint16_t deltaAccelTime = millis() - beginAccelMillis;
-        uint32_t newPeriod;
-
-        newPeriod = pps2period(accelBeginSpeed + ((int32_t)targetSpeed - (int32_t)accelBeginSpeed) * deltaAccelTime / accelTime);
-        // }
+        uint32_t newPeriod = pps2period(accelBeginSpeed + ((int32_t)targetSpeed - (int32_t)accelBeginSpeed) * deltaAccelTime / accelTime);
 
         if ((accelBeginSpeed < targetSpeed && newPeriod <= targetPeriod) || (accelBeginSpeed > targetSpeed && newPeriod >= targetPeriod)) {
             period = targetPeriod;
