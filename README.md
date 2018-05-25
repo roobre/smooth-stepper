@@ -26,8 +26,9 @@ void setup() {
 
 void loop() {
     stepper.step();
+    stepper.accelerate();
 
-    if (millis() > 5e3) {
+    if (millis() > 5e3 && millis() < 6e3) {
         // Double the speed after 5 seconds.
         stepper.setRpm(200);
     }
